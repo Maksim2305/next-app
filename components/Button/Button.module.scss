@@ -1,0 +1,46 @@
+@import '@/styles/variables.module.scss';
+
+.button {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px;
+  transition: all 0.4s;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &.primary {
+    color: $white;
+    background-color: $primary;
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+
+  &.ghost {
+    color: $black;
+    border: 1px solid $gray;
+    background-color: transparent;
+
+    &:hover {
+      color: $white;
+      background-color: $primary;
+    }
+  }
+}
+
+.arrow {
+  display: inline-block;
+  margin-left: 15px;
+  transition: all 0.4s;
+
+  svg {
+    fill: $white;
+  }
+
+  &.down {
+    transform: rotate(90deg);
+  }
+}

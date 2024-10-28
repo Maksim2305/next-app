@@ -1,0 +1,48 @@
+@import '@/styles/variables.module.scss';
+
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: none;
+}
+
+.small {
+  @extend .tag;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.medium {
+  @extend .tag;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.primary {
+  @extend .tag;
+  background-color: $white;
+  color:$primary;
+  border: 1px solid $primary;
+}
+
+.gray {
+  @extend .tag;
+  background-color: $lightgray;
+  color: $white;
+  border: 1px solid $gray;
+}
+
+.green {
+  @extend .tag;
+  background-color: $green;
+  color: $lightgreen;
+  border: 1px solid $green;
+}
+
+.red {
+  @extend .tag;
+  background-color: $red;
+  color: $white;
+  border: 1px solid $red;
+}

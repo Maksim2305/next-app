@@ -1,13 +1,14 @@
 :root {
-  --black: #3B434E;
+  --black: #3b434e;
   --white: #fff;
-  --red: #DE0000;
-  --primary: #7653FC;
-  --green: #1DC37E;
-  --lightgreen: #C8F8E4;
+  --red: #de0000;
+  --primary: #7653fc;
+  --primary-hover: #5831f7;
+  --green: #1dc37e;
+  --lightgreen: #c8f8e4;
+  --gray: #ebebeb;
   --font-family: "Noto Sans", sans-serif;
-  --background: #F5F6F8;
-
+  --background: #f5f6f8;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,7 +31,7 @@ body {
 
   font-family: "Noto Sans", sans-serif;
   font-optical-sizing: auto;
-  font-variation-settings:"wdth" 100;
+  font-variation-settings: "wdth" 100;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
