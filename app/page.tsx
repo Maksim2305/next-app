@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/Button/Button';
+import { Button } from '@/components/ui/Button/Button';
 import { Htag, P, Rating, Tag } from '@/components';
 import { useState } from 'react';
 
