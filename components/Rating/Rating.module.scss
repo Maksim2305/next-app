@@ -1,0 +1,11 @@
+@import '@/styles/variables.module.scss';
+
+.star svg {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.filled svg {
+  fill: $primary;
+  transition: all 0.3s ease;
+}
