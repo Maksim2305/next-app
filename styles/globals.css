@@ -7,8 +7,9 @@
   --green: #1dc37e;
   --lightgreen: #c8f8e4;
   --gray: #ebebeb;
-  --font-family: "Noto Sans", sans-serif;
+  --font-family: 'Noto Sans', sans-serif;
   --background: #f5f6f8;
+  --max-width: 768px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,9 +30,9 @@ body {
   color: var(--black);
   background: var(--background);
 
-  font-family: "Noto Sans", sans-serif;
+  font-family: 'Noto Sans', sans-serif;
   font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
+  font-variation-settings: 'wdth' 100;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

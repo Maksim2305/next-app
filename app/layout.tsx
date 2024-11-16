@@ -1,5 +1,10 @@
+import { Footer } from '@/components/Footer/Footer';
+import { Header } from '@/components/Header/Header';
+import { Sidebar } from '@/components/Sidebar/Sidebar';
+import styles from './layout.module.css';
 import '@/styles/globals.css';
 import { ReactNode } from 'react';
+import { API } from '@/api';
 
 export const metadata = {
   title: 'Next.js App',
@@ -12,7 +17,14 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className={styles.wrapper}>
+          <Header className={styles.header} />
+          <Sidebar className={styles.sidebar} />
+          <div className={styles.content}>{children}</div>
+          <Footer className={styles.footer} />
+        </div>
+      </body>
     </html>
   );
 }

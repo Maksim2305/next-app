@@ -1,25 +1,30 @@
-'use client';
+import { API } from '@/api';
+import { CommonNodeProps } from '@/types/components';
 
-import { Button } from '@/components/ui/Button/Button';
-import { Htag, P, Rating, Tag } from '@/components';
-import { useState } from 'react';
+async function getMenu(firstCategory: number) {
+  const res = await fetch(API.topPage.find, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ firstCategory }),
+  });
+  return res.json();
+}
 
-export default function Home(): JSX.Element {
-  const [direction, setDirection] = useState<'right' | 'down'>('right');
-  const [rating, setRating] = useState<number>(0);
-
-  const changeArrow = () => {
-    setDirection((prevDirection) => (prevDirection === 'right' ? 'down' : 'right'));
-  };
+export default async function Home({ children }: CommonNodeProps) {
+  const menu = await getMenu(0);
+  console.log(menu);
+  const renderMenu = menu.pages?.map((page: any) => (
+    <div key={page.id}>
+      <h3>{page.title}</h3>
+    </div>
+  ));
 
   return (
     <>
-      <Htag tag="h1">Курсы по Photoshop</Htag>
-      <Button appearance="primary" arrow={direction} onClick={changeArrow}>
-        click me
-      </Button>
-      <Tag color="primary">привет!</Tag>
-      <Rating rating={rating} setRating={setRating}></Rating>
+      {renderMenu}
+      {children}
     </>
   );
 }
