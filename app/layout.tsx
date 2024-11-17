@@ -5,6 +5,8 @@ import styles from './layout.module.css';
 import '@/styles/globals.css';
 import { ReactNode } from 'react';
 import { API } from '@/api';
+import { MenuContextProps, MenuProvider } from '@/context/app.context';
+import { getMenu } from '@/api/menu';
 
 export const metadata = {
   title: 'Next.js App',
@@ -14,16 +16,21 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const menu = await getMenu(0);
+  const firstCategory = 0;
+
   return (
     <html lang="en">
       <body>
-        <div className={styles.wrapper}>
-          <Header className={styles.header} />
-          <Sidebar className={styles.sidebar} />
-          <div className={styles.content}>{children}</div>
-          <Footer className={styles.footer} />
-        </div>
+        <MenuProvider menu={menu} firstCategory={firstCategory}>
+          <div className={styles.wrapper}>
+            <Header className={styles.header} />
+            <Sidebar className={styles.sidebar} />
+            <div className={styles.content}>{children}</div>
+            <Footer className={styles.footer} />
+          </div>
+        </MenuProvider>
       </body>
     </html>
   );
