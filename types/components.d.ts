@@ -1,3 +1,4 @@
+import { TopLevelCategory } from '@/enums/components';
 import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 type DivProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
@@ -32,4 +33,11 @@ export interface RatingProps extends DivProps {
   isEditable?: boolean;
   rating: number;
   setRating?: (rating: number) => void;
+}
+
+export interface FirstLevelMenuItem {
+  route: string;
+  name: string;
+  icon: JSX.Element;
+  id: TopLevelCategory;
 }
