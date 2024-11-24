@@ -3,7 +3,7 @@ import { Header } from '@/components/Header/Header';
 import { Sidebar } from '@/components/Sidebar/Sidebar';
 import styles from './layout.module.css';
 import '@/styles/globals.css';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { API } from '@/api';
 import { MenuContextProps, MenuProvider } from '@/context/app.context';
 import { getMenu } from '@/api/menu';
@@ -17,8 +17,8 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const menu = await getMenu(0);
   const firstCategory = 0;
+  const menu = await getMenu(firstCategory);
 
   return (
     <html lang="en">

@@ -2,6 +2,7 @@ import { API } from '@/api';
 import { MenuItem } from '@/types/api';
 
 export async function getMenu(firstCategory: number): Promise<MenuItem[]> {
+  console.log(firstCategory);
   const response = await fetch(API.topPage.find, {
     method: 'POST',
     headers: {

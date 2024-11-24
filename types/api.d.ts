@@ -12,4 +12,5 @@ export interface PageItem {
 export interface MenuItem {
   _id: Id;
   pages: PageItem[];
+  isOpened?: boolean;
 }

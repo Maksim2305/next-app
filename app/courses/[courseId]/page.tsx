@@ -1,7 +1,6 @@
 import { getCourseById, Course } from '@/api/courses';
 
 export default async function CoursePage({ params }: { params: { courseId: string } }) {
-  console.log(params);
   const course: Course = await getCourseById(params.courseId);
 
   return (
