@@ -1,11 +1,12 @@
 'use client';
 
+import { getMenu } from '@/api/menu';
 import { TopLevelCategory } from '@/enums/components';
 import { MenuItem } from '@/types/api';
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 export interface MenuContextProps {
-  menu: MenuItem[];
+  menu?: MenuItem[];
   firstCategory: number;
   setMenu?: (newMenu: MenuItem[]) => void;
   setFirstCategory?: (newFirstCategory: number) => void;
@@ -18,11 +19,20 @@ export const MenuProvider = ({
   firstCategory,
   children,
 }: MenuContextProps & { children: ReactNode }): JSX.Element => {
-  const [menuState, setMenuState] = useState<MenuItem[]>(menu);
+  const [menuState, setMenuState] = useState<MenuItem[]>(menu || []);
   const [firstCategoryState, setFirstCategoryState] = useState<number>(firstCategory);
 
   const setMenu = (newMenu: MenuItem[]) => setMenuState(newMenu);
   const setFirstCategory = (newFirstCategory: number) => setFirstCategoryState(newFirstCategory);
+
+  const loadMenu = async (categoryId: number) => {
+    const loadedMenu = await getMenu(categoryId);
+    setMenu(loadedMenu);
+  };
+
+  useEffect(() => {
+    loadMenu(firstCategoryState);
+  }, [firstCategoryState]);
 
   return (
     <MenuContext.Provider value={{ menu: menuState, firstCategory: firstCategoryState, setMenu, setFirstCategory }}>
