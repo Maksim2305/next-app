@@ -22,11 +22,12 @@ export const firstMenuLevel: FirstLevelMenuItem[] = [
 ];
 
 export const Menu = () => {
-  const { menu, setMenu } = useMenuContext();
-  const [firstCategory, setFirstCategory] = useState(0);
+  const { menu, setMenu, firstCategory, setFirstCategory } = useMenuContext();
   const pathname = usePathname();
 
   const openSecondLevelMenu = (secondCategory: string) => {
+    if (!menu) return;
+
     setMenu &&
       setMenu(
         menu.map((m: MenuItem) => {
@@ -68,7 +69,7 @@ export const Menu = () => {
   const buildSecondLevelMenu = (mainMenu: FirstLevelMenuItem) => {
     return (
       <div className={styles.secondBlock}>
-        {menu.map((m) => {
+        {menu?.map((m) => {
           if (m.pages.map((p) => p.alias).includes(pathname.split('/')[2])) {
             m.isOpened = true;
           }

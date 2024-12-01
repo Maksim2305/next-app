@@ -17,13 +17,10 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const firstCategory = 0;
-  const menu = await getMenu(firstCategory);
-
   return (
     <html lang="en">
       <body>
-        <MenuProvider menu={menu} firstCategory={firstCategory}>
+        <MenuProvider firstCategory={0}>
           <div className={styles.wrapper}>
             <Header className={styles.header} />
             <Sidebar className={styles.sidebar} />
