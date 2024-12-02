@@ -1,3 +1,8 @@
+.menu {
+  overflow: auto;
+  height: 93vh;
+}
+
 .firstLevel {
   display: grid;
   grid-template-columns: 24px 1fr;
