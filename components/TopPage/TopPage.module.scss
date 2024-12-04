@@ -1,0 +1,81 @@
+.page-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0 20px 0;
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 35px;
+    color: var(--black);
+  }
+
+  &__course-count {
+    width: 37px;
+    height: 25px;
+    border-radius: 25px;
+    background-color: #b3c0d9;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    @media (max-width: 768px) {
+      justify-content: space-around;
+    }
+  }
+
+  &__actions-sort-rating,
+  &__actions-sort-price {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+    margin-left: 40px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      margin-left: 0px;
+    }
+  }
+
+  &__actions-sort-rating-active,
+  &__actions-sort-price-active {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  &__actions-sort-rating-active svg {
+    fill: var(--primary);
+    margin-right: 5px;
+  }
+  &__actions-sort-price-active svg {
+    fill: var(--primary);
+    margin-right: 5px;
+  }
+}
