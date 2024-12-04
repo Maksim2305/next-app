@@ -1,54 +1,20 @@
-'use client';
-
 import { getCourses, getPageByAlias } from '@/api/courses';
 import { PageRoot } from '@/types/page.interface';
 import styles from './page.module.scss';
-import RatingIcon from './icons/sort.svg';
 import StarIcon from './icons/star.svg';
 import CheckIcon from './icons/check.svg';
 import cn from 'classnames';
 import { Tag } from '@/components/ui/Tag/Tag';
+import { Course } from '@/types/course.interface';
+import { TopPage } from '@/components/TopPage/TopPage';
 
 export default async function CoursePage({ params }: { params: { alias: string } }) {
   const page: PageRoot = await getPageByAlias(params.alias);
-  console.log(page);
-  const courses = await getCourses(page.alias);
+  const courses: Course[] = await getCourses(page.alias);
+
   return (
     <div>
-      <div className={styles['page-header']}>
-        <div className={styles['page-header__info']}>
-          <h1 className={styles['page-header__title']}>{page.title}</h1>
-          <div className={styles['page-header__course-count']}>{courses?.length}</div>
-        </div>
-        <div className={styles['page-header__actions']}>
-          <div
-            className={cn(styles['page-header__actions-sort-rating'], {
-              [styles['page-header__actions-sort-rating-active']]: true,
-            })}
-          >
-            <RatingIcon />
-            <span style={{ marginLeft: '10px' }}>По рейтингу</span>
-          </div>
-          <div
-            className={cn(styles['page-header__actions-sort-price'], {
-              [styles['page-header__actions page-header__actions-sort-price-active']]: false,
-            })}
-          >
-            По цене
-          </div>
-        </div>
-      </div>
-
-      <div>
-        {courses &&
-          courses.map((course) => (
-            <div key={course._id}>
-              <h2>{course.title}</h2>
-              <p>{course.description}</p>
-            </div>
-          ))}
-      </div>
-
+      <TopPage courses={courses} page={page} />
       {page?.hh && (
         <div className={styles['page-vacancies']}>
           <div className={styles['page-vacancies__title']}>
@@ -104,12 +70,19 @@ export default async function CoursePage({ params }: { params: { alias: string }
         </div>
       )}
 
-      {page?.advantages && (
+      {!!page?.advantages?.length && (
         <div className={styles.advantages}>
           <div className={styles['advantages__title']}>Преимущества</div>
           {page.advantages.map((a) => (
             <div key={a._id} className={styles['advantages__list-item']}>
-              <div>{a.title && <CheckIcon />}</div>
+              <div className={styles['advantages__list-item-icon-dash']}>
+                {a.title && (
+                  <div>
+                    <CheckIcon />
+                  </div>
+                )}{' '}
+                <div className={styles.dash}></div>{' '}
+              </div>
               <div>
                 <div className={styles['advantages__list-title']}>{a.title}</div>
                 <div className={styles['advantages__list-description']}>{a.description}</div>

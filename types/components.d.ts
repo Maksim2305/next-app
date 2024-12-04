@@ -25,7 +25,7 @@ export interface PProps extends ParagraphProps {
 
 export interface TagProps extends DivProps {
   size?: 'small' | 'medium';
-  color?: 'gray' | 'green' | 'primary' | 'red' | 'ghost';
+  color?: 'gray' | 'green' | 'primary' | 'red' | 'ghost' | 'default';
   href?: string;
 }
 

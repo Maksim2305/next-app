@@ -7,7 +7,7 @@ import { CommonNodeProps } from '@/types/components';
 
 export const Sidebar = ({ ...props }: CommonNodeProps) => {
   return (
-    <aside className={cn(styles)} {...props}>
+    <aside style={{ maxHeight: '100vh', overflow: 'auto' }} className={cn(styles)} {...props}>
       <Menu />
     </aside>
   );

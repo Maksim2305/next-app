@@ -22,7 +22,7 @@
 .primary {
   @extend .tag;
   background-color: $white;
-  color:$primary;
+  color: $primary;
   border: 1px solid $primary;
 }
 
@@ -45,4 +45,11 @@
   background-color: $red;
   color: $white;
   border: 1px solid $red;
+}
+
+.default {
+  @extend .tag;
+  background-color: none;
+  color: $black;
+  border: 1px solid $gray;
 }
