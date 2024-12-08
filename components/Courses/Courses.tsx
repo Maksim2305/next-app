@@ -1,10 +1,11 @@
 import { Course } from '@/types/course.interface';
 import { PageRoot } from '@/types/page.interface';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styles from './Courses.module.scss';
 import { Rating } from '../ui/Rating/Rating';
 import { Tag } from '../ui/Tag/Tag';
 import { Button } from '../ui/Button/Button';
+import { Review } from '../Review/Review';
 
 interface CoursesProps {
   page: PageRoot;
@@ -12,6 +13,20 @@ interface CoursesProps {
 }
 
 export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
+  const [expandedReviews, setExpandedReviews] = useState<Set<string>>(new Set());
+
+  const toggleReviews = (id: string) => {
+    setExpandedReviews((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
+
   return (
     <>
       {products.map((product) => (
@@ -66,11 +81,23 @@ export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
           <div className={styles['cart-product__footer']}>
             <div className={styles['cart-product__footer-actions']}>
               <Button appearance="primary">Узнать подробенее</Button>
-              <Button appearance="ghost" arrow="left">
+              <Button
+                appearance="ghost"
+                arrow={expandedReviews.has(product._id) ? 'down' : 'left'}
+                onClick={() => toggleReviews(product._id)}
+              >
                 Читать отзывы
               </Button>
             </div>
           </div>
+
+          {expandedReviews.has(product._id) && (
+            <div>
+              {product?.reviews.map((review) => (
+                <Review key={review.text} review={review} />
+              ))}
+            </div>
+          )}
         </div>
       ))}
     </>

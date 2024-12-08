@@ -1,3 +1,5 @@
+'use client';
+
 import { getCourses, getPageByAlias } from '@/api/courses';
 import { PageRoot } from '@/types/page.interface';
 import styles from './page.module.scss';
@@ -12,6 +14,15 @@ export default async function CoursePage({ params }: { params: { alias: string }
   const page: PageRoot = await getPageByAlias(params.alias);
   const courses: Course[] = await getCourses(page.alias);
 
+  courses.forEach((course) => {
+    course.reviews.push({
+      author: 'Василий Раганов',
+      title: 'Что вас ждет в этом курсе?',
+      text: 'Напишу сразу в двух курсах, так как проходил оба. Java будет многим непросвещённым сложновата в изучении, но здесь перевес из-за лидирующего положения языка как самого популярного в программировании. Выбор мой пал на эту профессию еще и потому, что Java-разработчики получают самую большую зарплату. Хотя Python начинает догонять Java по многим моментам, но вот в крупном екоме разработке Джава все-таки остается главенствующей сейчас. Скажу так – полнота программы и интенсивность присуща обоим курсам GeekBrains. Хочу отметить, что с первого дня занятий вы приступаете к практике и получаете опыт коммерческой разработки уже в свое резюме. Скажу вам как прошедший это – реально помогло в трудоустройстве!',
+      rating: 4,
+      date: new Date('2022-05-10'),
+    });
+  });
   return (
     <div>
       <TopPage courses={courses} page={page} />
