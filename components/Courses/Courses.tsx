@@ -13,10 +13,18 @@ interface CoursesProps {
 }
 
 export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
-  const [expand, setExpand] = useState<boolean>(false);
+  const [expandedReviews, setExpandedReviews] = useState<Set<string>>(new Set());
 
-  const toggleReviews = () => {
-    setExpand(!expand);
+  const toggleReviews = (id: string) => {
+    setExpandedReviews((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
   };
 
   return (
@@ -73,13 +81,17 @@ export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
           <div className={styles['cart-product__footer']}>
             <div className={styles['cart-product__footer-actions']}>
               <Button appearance="primary">Узнать подробенее</Button>
-              <Button appearance="ghost" arrow={expand ? 'down' : 'left'} onClick={toggleReviews}>
+              <Button
+                appearance="ghost"
+                arrow={expandedReviews.has(product._id) ? 'down' : 'left'}
+                onClick={() => toggleReviews(product._id)}
+              >
                 Читать отзывы
               </Button>
             </div>
           </div>
 
-          {expand && (
+          {expandedReviews.has(product._id) && (
             <div>
               {product?.reviews.map((review) => (
                 <Review key={review.text} review={review} />
