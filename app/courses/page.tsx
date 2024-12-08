@@ -8,7 +8,6 @@ export default function CategoryPage() {
   return (
     <div>
       <h1>Категория: {category}</h1>
-      <p>Это страница для категории: {category}</p>
     </div>
   );
 }

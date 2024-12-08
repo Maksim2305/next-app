@@ -1,10 +1,11 @@
 import { Course } from '@/types/course.interface';
 import { PageRoot } from '@/types/page.interface';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styles from './Courses.module.scss';
 import { Rating } from '../ui/Rating/Rating';
 import { Tag } from '../ui/Tag/Tag';
 import { Button } from '../ui/Button/Button';
+import { Review } from '../Review/Review';
 
 interface CoursesProps {
   page: PageRoot;
@@ -12,6 +13,12 @@ interface CoursesProps {
 }
 
 export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
+  const [expand, setExpand] = useState<boolean>(false);
+
+  const toggleReviews = () => {
+    setExpand(!expand);
+  };
+
   return (
     <>
       {products.map((product) => (
@@ -66,11 +73,19 @@ export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
           <div className={styles['cart-product__footer']}>
             <div className={styles['cart-product__footer-actions']}>
               <Button appearance="primary">Узнать подробенее</Button>
-              <Button appearance="ghost" arrow="left">
+              <Button appearance="ghost" arrow={expand ? 'down' : 'left'} onClick={toggleReviews}>
                 Читать отзывы
               </Button>
             </div>
           </div>
+
+          {expand && (
+            <div>
+              {product?.reviews.map((review) => (
+                <Review key={review.text} review={review} />
+              ))}
+            </div>
+          )}
         </div>
       ))}
     </>
