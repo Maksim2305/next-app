@@ -2,7 +2,7 @@ import { Footer } from '@/components/Footer/Footer';
 import { Header } from '@/components/Header/Header';
 import { Sidebar } from '@/components/Sidebar/Sidebar';
 import styles from './layout.module.css';
-import '@/styles/globals.css';
+import '@/styles/globals.scss';
 import { ReactNode } from 'react';
 import { MenuProvider } from '@/context/app.context';
 

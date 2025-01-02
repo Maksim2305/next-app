@@ -1,5 +1,9 @@
 import { CommonNodeProps } from '@/types/components';
 
-export default function Home({ children }: CommonNodeProps) {
-  return <>{children}</>;
+export default function Home(): JSX.Element {
+  return (
+    <>
+      <div>Welcome to OwlTop!</div>
+    </>
+  );
 }

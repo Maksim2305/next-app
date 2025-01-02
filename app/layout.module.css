@@ -20,6 +20,7 @@
 
 .sidebar {
   grid-area: sidebar;
+  padding-top: 26px;
 }
 
 .content {
