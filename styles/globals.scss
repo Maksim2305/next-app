@@ -1,18 +1,4 @@
-:root {
-  --black: #3b434e;
-  --white: #fff;
-  --red: #de0000;
-  --primary: #7653fc;
-  --primary-hover: #5831f7;
-  --green: #1dc37e;
-  --orange: #fc836d;
-  --lightgreen: #c8f8e4;
-  --gray: #ebebeb;
-  --gray-dark: #787d85;
-  --font-family: 'Noto Sans', sans-serif;
-  --background: #f5f6f8;
-  --max-width: 768px;
-}
+@import './variables';
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -29,8 +15,8 @@ body {
 }
 
 body {
-  color: var(--black);
-  background: var(--background);
+  color: $black;
+  background: $background;
 
   font-family: 'Noto Sans', sans-serif;
   font-optical-sizing: auto;

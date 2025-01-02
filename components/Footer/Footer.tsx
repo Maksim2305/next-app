@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import styles from './Footer.module.css';
+import styles from './Footer.module.scss';
 import { CommonNodeProps } from '@/types/components';
 
 export const Footer = ({ className, ...props }: CommonNodeProps): JSX.Element => {

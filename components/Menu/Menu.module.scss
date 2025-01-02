@@ -14,12 +14,12 @@
 
 .firstLevelActive,
 .firstLevel:hover {
-  color: var(--primary);
+  color: $primary;
 }
 
 .firstLevelActive svg,
 .firstLevel:hover svg {
-  fill: var(--primary);
+  fill: $primary;
 }
 
 .secondBlock {
@@ -50,7 +50,7 @@
 .secondLevel {
   cursor: pointer;
   text-transform: uppercase;
-  color: var(--gray-dark);
+  color: $gray-dark;
   font-weight: 300;
   font-size: 12px;
   line-height: 16px;
@@ -59,7 +59,7 @@
 
 .thirdLevel {
   cursor: pointer;
-  color: var(--gray-dark);
+  color: $gray-dark;
   font-weight: 500;
   font-size: 14px;
   line-height: 19px;
@@ -68,5 +68,5 @@
 
 .thirdLevelActive,
 .thirdLevel:hover {
-  color: var(--primary);
+  color: $primary;
 }

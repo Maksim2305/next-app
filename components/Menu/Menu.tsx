@@ -1,7 +1,7 @@
 'use client';
 
 import cn from 'classnames';
-import styles from './Menu.module.css';
+import styles from './Menu.module.scss';
 import { useMenuContext } from '@/context/app.context';
 import { TopLevelCategory } from '@/enums/components';
 import { FirstLevelMenuItem } from '@/types/components';

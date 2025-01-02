@@ -1,7 +1,10 @@
 .cart-product {
   background-color: #fff;
-  padding: 30px;
   margin-bottom: 30px;
+
+  &__info {
+    padding: 30px;
+  }
 
   &__top {
     display: grid;
@@ -9,7 +12,7 @@
     column-gap: 30px;
     align-items: start;
     padding-bottom: 20px;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid $gray;
 
     &-image {
       width: 70px;
@@ -52,7 +55,7 @@
 
   &__middle {
     padding: 20px 0;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid $gray;
 
     &-description {
       font-size: 16px;
@@ -69,7 +72,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px dotted var(--gray);
+        border-bottom: 1px dotted $gray;
         margin-bottom: 10px;
       }
 

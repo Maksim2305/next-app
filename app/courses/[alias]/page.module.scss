@@ -6,7 +6,7 @@
     font-size: 22px;
     font-weight: 500;
     line-height: 30px;
-    color: var(--black);
+    color: $black;
     display: flex;
     align-items: center;
     margin-bottom: 25px;
@@ -17,7 +17,7 @@
     grid-template-columns: 1fr 3fr;
     gap: 30px;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
       display: grid;
       grid-template-columns: 1fr;
     }
@@ -35,14 +35,14 @@
     font-size: 20px;
     line-height: 28px;
     font-weight: 300;
-    color: var(--black);
+    color: $black;
   }
 
   &__count-num {
     font-size: 36px;
     font-weight: 700;
     line-height: 49.03px;
-    color: var(--primary);
+    color: $primary;
     margin: 12px 0px;
   }
 
@@ -54,7 +54,7 @@
     padding: 20px;
     border-radius: 5px;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
       display: grid;
       grid-template-columns: 1fr;
       justify-content: center;
@@ -72,7 +72,7 @@
   &__salary > div:not(:last-child) {
     border-right: 1px solid #ebebeb;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
       border-right: none;
     }
   }
@@ -82,7 +82,7 @@
   }
 
   &__rating-star-active {
-    fill: var(--orange);
+    fill: $orange;
   }
 }
 
@@ -101,7 +101,7 @@
     display: grid;
     grid-template-columns: 50px auto;
     gap: 40px;
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
       gap: 20px;
     }
 
@@ -116,7 +116,7 @@
       flex: 1;
       bottom: 0;
       width: 1px;
-      background-color: var(--gray);
+      background-color: $gray;
     }
   }
 
