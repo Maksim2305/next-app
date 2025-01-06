@@ -1,11 +1,12 @@
 import { Course } from '@/types/course.interface';
 import { PageRoot } from '@/types/page.interface';
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import styles from './Courses.module.scss';
 import { Rating } from '../ui/Rating/Rating';
 import { Tag } from '../ui/Tag/Tag';
 import { Button } from '../ui/Button/Button';
 import { ReviewsForm } from '../ReviewsForm/ReviewsForm';
+import cn from 'classnames';
 
 interface CoursesProps {
   page: PageRoot;
@@ -14,9 +15,17 @@ interface CoursesProps {
 
 export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
   const [showReviews, setShowReviews] = useState<Record<string, boolean>>({});
+  const reviewRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const toggleReviews = (id: string) => {
     setShowReviews((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const scrollToReviews = (id: string): void => {
+    setShowReviews((prev) => ({ ...prev, [id]: true }));
+    if (reviewRefs.current[id]) {
+      reviewRefs.current[id]?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -39,22 +48,23 @@ export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
               </div>
               <div className={styles['cart-product__top-price']}>
                 <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
-                  <span style={{ marginRight: '10px' }}>{product.price}</span>
+                  <span style={{ marginRight: '10px' }}>{product.price} ₽</span>
                   {'  '}
                   <Tag color="green" size="small">
-                    - {product.oldPrice - product.price}
+                    - {product.oldPrice - product.price} ₽
                   </Tag>
                 </div>
                 <span>цена</span>
               </div>
               <div className={styles['cart-product__top-credit']}>
-                {product.credit}
+                {product.credit} ₽/мес
                 <span>в кредит</span>
               </div>
               {product?.initialRating && (
                 <div className={styles['cart-product__top-rating']}>
                   <Rating rating={product.initialRating} isEditable={false} />
-                  {!!product?.reviews?.length && <span>{product?.reviews?.length} отзывов</span>}
+                  {/* {!!product?.reviews?.length && <span>{product?.reviews?.length} отзывов</span>} */}
+                  <span onClick={() => scrollToReviews(product._id)}>1 отзыв</span>
                 </div>
               )}
             </div>
@@ -84,7 +94,15 @@ export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
               </div>
             </div>
           </div>
-          {showReviews[product._id] && (
+
+          <div
+            className={cn({
+              [styles['cart-product__reviews--hidden']]: !showReviews[product._id],
+            })}
+            ref={(el: HTMLDivElement | null) => {
+              reviewRefs.current[product._id] = el;
+            }}
+          >
             <ReviewsForm
               reviews={[
                 {
@@ -98,7 +116,7 @@ export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
                 },
               ]}
             />
-          )}
+          </div>
         </div>
       ))}
     </>
