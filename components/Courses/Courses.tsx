@@ -6,7 +6,7 @@ import { Rating } from '../ui/Rating/Rating';
 import { Tag } from '../ui/Tag/Tag';
 import { Button } from '../ui/Button/Button';
 import { ReviewsForm } from '../ReviewsForm/ReviewsForm';
-import cn from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface CoursesProps {
   page: PageRoot;
@@ -23,15 +23,43 @@ export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
 
   const scrollToReviews = (id: string): void => {
     setShowReviews((prev) => ({ ...prev, [id]: true }));
-    if (reviewRefs.current[id]) {
-      reviewRefs.current[id]?.scrollIntoView({ behavior: 'smooth' });
-    }
+    setTimeout(() => {
+      if (reviewRefs.current[id]) {
+        reviewRefs.current[id]?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
+  const reviewVariants = {
+    hidden: {
+      height: 0,
+      opacity: 0,
+      overflow: 'hidden',
+    },
+    visible: {
+      height: 'auto',
+      opacity: 1,
+      overflow: 'hidden',
+    },
+    exit: {
+      height: 0,
+      opacity: 0,
+      overflow: 'hidden',
+    },
   };
 
   return (
-    <>
+    <AnimatePresence>
       {products.map((product) => (
-        <div key={product._id} className={styles['cart-product']}>
+        <motion.div
+          key={product._id}
+          layout
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          transition={{ duration: 0.3 }}
+          className={styles['cart-product']}
+        >
           <div className={styles['cart-product__info']}>
             <div className={styles['cart-product__top']}>
               <img className={styles['cart-product__top-image']} src={product?.image} alt="course-logo" />
@@ -95,10 +123,13 @@ export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
             </div>
           </div>
 
-          <div
-            className={cn({
-              [styles['cart-product__reviews--hidden']]: !showReviews[product._id],
-            })}
+          <motion.div
+            layout
+            variants={reviewVariants}
+            initial="hidden"
+            animate={showReviews[product._id] ? 'visible' : 'hidden'}
+            exit="exit"
+            transition={{ duration: 0.3 }}
             ref={(el: HTMLDivElement | null) => {
               reviewRefs.current[product._id] = el;
             }}
@@ -116,9 +147,9 @@ export const Courses: FC<CoursesProps> = ({ page, products }): JSX.Element => {
                 },
               ]}
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       ))}
-    </>
+    </AnimatePresence>
   );
 };
