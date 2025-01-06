@@ -42,3 +42,9 @@ a {
     color-scheme: dark;
   }
 }
+
+@media (max-width: $breakpoint-mobile) {
+  body {
+    font-size: 14px;
+  }
+}

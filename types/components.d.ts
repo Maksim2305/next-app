@@ -13,6 +13,7 @@ export interface CommonNodeProps extends DivProps {
 export interface ButtonProps extends ButtonElementProps {
   appearance: 'primary' | 'ghost';
   arrow?: 'left' | 'right' | 'up' | 'down' | 'none';
+  disabled?: boolean;
 }
 
 export interface HtagProps {
