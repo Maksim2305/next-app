@@ -18,5 +18,21 @@
     &::placeholder {
       color: $mist-gray;
     }
+
+    &--error {
+      border: 1px solid $red;
+
+      &::placeholder {
+        color: $red;
+      }
+    }
   }
+}
+
+.error-message {
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  color: $red;
+  font-size: 12px;
 }

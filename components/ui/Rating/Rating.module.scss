@@ -1,5 +1,3 @@
-@import './variables';
-
 .star svg {
   margin-right: 5px;
   cursor: pointer;
@@ -8,4 +6,20 @@
 .filled svg {
   fill: $primary;
   transition: all 0.3s ease;
+}
+
+.rating {
+  position: relative;
+}
+
+.error-message {
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  color: $red;
+  font-size: 12px;
+}
+
+.error svg {
+  stroke: $red;
 }

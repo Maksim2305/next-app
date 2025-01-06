@@ -2,38 +2,34 @@
 
 import cn from 'classnames';
 import styles from './ReviewsForm.module.scss';
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, useReducer } from 'react';
 import UserIcon from './icons/user-icon.svg';
 import { Rating } from '../ui/Rating/Rating';
 import { Button } from '../ui/Button/Button';
 import { Controller, useForm } from 'react-hook-form';
 import Input from '../ui/Input/Input';
 import Textarea from '../ui/Textarea/Textarea';
+import { IReview, IReviewForm, ReviewsFormProps } from '@/types/review.interface';
+import { postReview } from '@/api/reviews';
+import { formReducer, initialState } from './ReviewsFormReducer';
 
-interface IReview {
-  author: string;
-  rating: number;
-  text: string;
-  date: Date;
-  id?: string;
-  title: string;
-}
-
-interface ReviewsFormProps {
-  reviews: IReview[];
-}
-
-interface IForm {
-  name: string;
-  title: string;
-  text: string;
-  rating: number;
-}
-
-export const ReviewsForm: FC<PropsWithChildren<ReviewsFormProps>> = ({ reviews, ...props }) => {
-  const { handleSubmit, control, register } = useForm<IForm>();
-  const submitForm = (data: IForm) => {
-    console.log('Submit form', data);
+export const ReviewsForm: FC<PropsWithChildren<ReviewsFormProps>> = ({ reviews }) => {
+  const [formState, dispatch] = useReducer(formReducer, initialState);
+  const {
+    handleSubmit,
+    control,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm<IReviewForm>();
+  const submitForm = async (data: IReviewForm) => {
+    try {
+      await postReview(data, reviews[0].id as string);
+      dispatch({ type: 'SET_SUCCESS', payload: 'Ваш отзыв успешно отправлен!' });
+      reset();
+    } catch (error: any) {
+      dispatch({ type: 'SET_ERROR', payload: 'Не удалось отправить отзыв. Попробуйте еще раз.' });
+    }
   };
 
   return (
@@ -57,28 +53,58 @@ export const ReviewsForm: FC<PropsWithChildren<ReviewsFormProps>> = ({ reviews, 
               </div>
             </div>
             <div className={styles['review__text']}>
-              <p>{review.text}</p>
+              <p>{review.description}</p>
             </div>
             <form className={cn(styles.form)} onSubmit={handleSubmit(submitForm)}>
               <div className={cn(styles['form__inputs'])}>
-                <Input placeholder="Имя" {...register('name')} />
-                <Input placeholder="Заголовок отзыва" {...register('title')} />
+                <Input
+                  error={errors.name}
+                  placeholder="Имя"
+                  {...register('name', {
+                    required: 'Имя обязательно',
+                    minLength: { value: 2, message: 'Имя должно быть не менее 2-х символов' },
+                    pattern: {
+                      value: /^[A-Za-zА-��а-я]+$/,
+                      message: 'Имя может содержать только буквы',
+                    },
+                  })}
+                />
+                <Input
+                  error={errors.title}
+                  placeholder="Заголовок отзыва"
+                  {...register('title', {
+                    required: 'Заголовок обязателен',
+                  })}
+                />
                 <div className={cn(styles['form__inputs-rating'])}>
                   {' '}
                   <span>Оценка: </span>
                   <Controller
                     control={control}
+                    rules={{ required: 'Укажите рейтинг' }}
                     name="rating"
                     render={({ field }) => {
                       return (
-                        <Rating rating={field.value} isEditable={true} setRating={field.onChange} ref={field.ref} />
+                        <Rating
+                          rating={field.value}
+                          error={errors.rating}
+                          isEditable={true}
+                          setRating={field.onChange}
+                          ref={field.ref}
+                        />
                       );
                     }}
                   ></Controller>
                 </div>
               </div>
               <div className={cn(styles['form__text'])}>
-                <Textarea placeholder="Текст отзыва" {...register('text')} />
+                <Textarea
+                  error={errors.description}
+                  placeholder="Текст отзыва"
+                  {...register('description', {
+                    required: 'Текст обязателен',
+                  })}
+                />
               </div>
               <div className={cn(styles['form__actions'])}>
                 <Button type="submit" appearance={'primary'}>
@@ -86,10 +112,27 @@ export const ReviewsForm: FC<PropsWithChildren<ReviewsFormProps>> = ({ reviews, 
                 </Button>{' '}
                 <span>* Перед публикацией отзыв пройдет предварительную модерацию и проверку</span>
               </div>
+              <div></div>
             </form>
           </div>
         );
       })}
+      {formState.error && (
+        <div className={cn(styles.notification, styles.error)}>
+          {formState.error}{' '}
+          <span className={styles.cross} onClick={() => dispatch({ type: 'RESET' })}>
+            &#10006;
+          </span>
+        </div>
+      )}
+      {formState.success && (
+        <div className={cn(styles.notification, styles.success)}>
+          {formState.success}{' '}
+          <span className={styles.cross} onClick={() => dispatch({ type: 'RESET' })}>
+            &#10006;
+          </span>
+        </div>
+      )}
     </>
   );
 };
