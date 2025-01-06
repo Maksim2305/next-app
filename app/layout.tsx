@@ -5,6 +5,7 @@ import styles from './layout.module.css';
 import '@/styles/globals.scss';
 import { ReactNode } from 'react';
 import { MenuProvider } from '@/context/app.context';
+import { UpButton } from '@/components/UpButton/UpButton';
 
 export const metadata = {
   title: 'Next.js App',
@@ -24,6 +25,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             <Sidebar className={styles.sidebar} />
             <div className={styles.content}>{children}</div>
             <Footer className={styles.footer} />
+            <UpButton appearance="primary" arrow="up" />
           </div>
         </MenuProvider>
       </body>

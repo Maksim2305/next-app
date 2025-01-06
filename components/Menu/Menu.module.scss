@@ -31,15 +31,7 @@
 }
 
 .secondLevelBlock {
-  display: none;
-}
-
-.secondLevelBlockActive {
-  display: block;
-}
-
-.secondLevelBlock {
-  margin-bottom: 30px;
+  overflow: hidden;
 }
 
 .secondBlock a {
