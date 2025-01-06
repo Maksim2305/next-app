@@ -1,5 +1,6 @@
 import { TopLevelCategory } from '@/enums/components';
 import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
+import { FieldError } from 'react-hook-form';
 
 type DivProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 type ButtonElementProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
@@ -33,6 +34,7 @@ export interface RatingProps extends DivProps {
   isEditable?: boolean;
   rating: number;
   setRating?: (rating: number) => void;
+  error?: FieldError;
 }
 
 export interface FirstLevelMenuItem {

@@ -5,7 +5,10 @@ import React, { ForwardedRef, useEffect, useState } from 'react';
 import { RatingProps } from '@/types/components';
 
 export const Rating = React.forwardRef(
-  ({ rating, isEditable = true, setRating, ...props }: RatingProps, ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
+  (
+    { rating, isEditable = true, setRating, error, ...props }: RatingProps,
+    ref: ForwardedRef<HTMLDivElement>
+  ): JSX.Element => {
     const [currentRating, setCurrentRating] = useState<number>(rating);
     const [hoveredRating, setHoveredRating] = useState<number | null>(null);
 
@@ -47,8 +50,15 @@ export const Rating = React.forwardRef(
     }, [rating]);
 
     return (
-      <div ref={ref} {...props}>
+      <div
+        className={cn(styles.rating, {
+          [styles.error]: error,
+        })}
+        ref={ref}
+        {...props}
+      >
         {ratingArray}
+        {error && <span className={styles['error-message']}>{error.message}</span>}
       </div>
     );
   }

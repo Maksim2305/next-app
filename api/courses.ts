@@ -22,7 +22,7 @@ export async function getCourses(category: string): Promise<Course[]> {
 }
 
 export async function getPageByAlias(alias: string): Promise<PageRoot> {
-  const response = await fetch(`${API.topPage.byAlias}/${alias}`);
+  const response = await fetch(`${API.topPage.byAlias}${alias}`);
 
   if (!response.ok) {
     throw new Error(`Ошибка при загрузке страницы: ${response.statusText}`);

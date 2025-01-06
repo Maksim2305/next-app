@@ -33,7 +33,7 @@
 .form {
   &__inputs {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
     padding-top: 30px;
     margin: 20px 0px;
@@ -49,5 +49,35 @@
 
   &__text {
     margin-bottom: 20px;
+  }
+}
+
+.error {
+  background-color: $red;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+}
+
+.notification {
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+
+  &.error {
+    background-color: $red;
+    color: $white;
+  }
+
+  &.success {
+    background-color: $green;
+  }
+
+  .cross {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
   }
 }
