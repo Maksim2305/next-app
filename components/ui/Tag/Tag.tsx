@@ -1,11 +1,17 @@
-import { IPProps } from './Tag.props';
 import cn from 'classnames';
 import styles from './Tag.module.scss';
+import { TagProps } from '@/types/components';
 
-export const Tag = ({ size = 'small', color = 'ghost', href, children, className, ...props }: IPProps): JSX.Element => {
+export const Tag = ({ size = 'small', color = 'ghost', href, children, ...props }: TagProps): JSX.Element => {
   return (
     <div className={cn(styles.p, styles[size], styles[color])} {...props}>
-      {href ? <a href={href}>children</a> : <>{children}</>}
+      {href ? (
+        <a href={href} target="blanc">
+          {children}
+        </a>
+      ) : (
+        <>{children}</>
+      )}
     </div>
   );
 };

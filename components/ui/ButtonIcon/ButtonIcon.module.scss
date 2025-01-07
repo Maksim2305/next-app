@@ -1,0 +1,49 @@
+.button {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+  transition: all 0.4s;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 0px rgba(34, 60, 80, 0.2);
+  cursor: pointer;
+
+  &.primary {
+    color: $white;
+    background-color: $primary;
+
+    svg {
+      fill: $white;
+    }
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+
+  &.white {
+    color: $primary;
+    background-color: $white;
+
+    svg {
+      fill: $primary;
+    }
+
+    &:hover {
+      color: $primary;
+      background-color: $white;
+
+      .arrow svg {
+        fill: $primary;
+      }
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

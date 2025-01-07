@@ -1,0 +1,6 @@
+.search {
+  margin-bottom: 30px;
+  @media (max-width: $breakpoint-mobile) {
+    margin-top: 20px;
+  }
+}

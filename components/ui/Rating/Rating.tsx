@@ -1,42 +1,65 @@
-import { RatingProps } from './Rating.props';
 import cn from 'classnames';
 import styles from './Rating.module.scss';
 import StarIcon from './star.svg';
-import { useEffect, useState } from 'react';
+import React, { ForwardedRef, useEffect, useState } from 'react';
+import { RatingProps } from '@/types/components';
 
-export const Rating = ({ rating, isEditable = true, setRating, ...props }: RatingProps): JSX.Element => {
-  const [ratingArray, setRatingArray] = useState<JSX.Element[]>(new Array(5).fill(<></>));
+export const Rating = React.forwardRef(
+  (
+    { rating, isEditable = true, setRating, error, ...props }: RatingProps,
+    ref: ForwardedRef<HTMLDivElement>
+  ): JSX.Element => {
+    const [currentRating, setCurrentRating] = useState<number>(rating);
+    const [hoveredRating, setHoveredRating] = useState<number | null>(null);
 
-  const constructRating = (currentRating: number) => {
-    const updateRating = ratingArray.map((r: JSX.Element, i: number) => {
-      return (
-        <span
-          key={i}
-          className={cn(styles.star, { [styles.filled]: i < currentRating })}
-          onMouseEnter={() => constructRating(i + 1)}
-          onMouseLeave={() => constructRating(rating)}
-          onClick={() => {
-            if (isEditable && setRating) {
-              setRating(i + 1);
-            }
-          }}
-        >
-          <StarIcon />
-        </span>
-      );
-    });
-    setRatingArray(updateRating);
-  };
+    const handleRatingClick = (index: number) => {
+      if (isEditable && setRating) {
+        setRating(index + 1);
+        setCurrentRating(index + 1);
+      }
+    };
 
-  useEffect(() => {
-    constructRating(rating);
-  }, [rating]);
+    const handleMouseEnter = (index: number) => {
+      if (isEditable) {
+        setHoveredRating(index + 1);
+      }
+    };
 
-  return (
-    <div {...props}>
-      {ratingArray.map((r, i) => (
-        <span key={i}>{r}</span>
-      ))}
-    </div>
-  );
-};
+    const handleMouseLeave = () => {
+      if (isEditable) {
+        setHoveredRating(null);
+      }
+    };
+
+    const ratingArray = new Array(5).fill(null).map((_, index) => (
+      <span
+        key={index}
+        className={cn(styles.star, {
+          [styles.filled]: index < (hoveredRating || currentRating),
+        })}
+        onMouseEnter={() => handleMouseEnter(index)}
+        onMouseLeave={handleMouseLeave}
+        onClick={() => handleRatingClick(index)}
+      >
+        <StarIcon />
+      </span>
+    ));
+
+    useEffect(() => {
+      setCurrentRating(rating);
+    }, [rating]);
+
+    return (
+      <div
+        className={cn(styles.rating, {
+          [styles.error]: error,
+        })}
+        ref={ref}
+        {...props}
+      >
+        {ratingArray}
+        {error && <span className={styles['error-message']}>{error.message}</span>}
+      </div>
+    );
+  }
+);

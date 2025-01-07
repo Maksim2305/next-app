@@ -1,5 +1,11 @@
-import '@/styles/globals.css';
+import { Footer } from '@/components/Footer/Footer';
+import { Header } from '@/components/Header/Header';
+import { Sidebar } from '@/components/Sidebar/Sidebar';
+import styles from './layout.module.scss';
+import '@/styles/globals.scss';
 import { ReactNode } from 'react';
+import { MenuProvider } from '@/context/app.context';
+import { UpButton } from '@/components/UpButton/UpButton';
 
 export const metadata = {
   title: 'Next.js App',
@@ -9,10 +15,20 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <MenuProvider firstCategory={0}>
+          <div className={styles.wrapper}>
+            <Header className={styles.header} />
+            <Sidebar className={styles.sidebar} />
+            <div className={styles.content}>{children}</div>
+            <Footer className={styles.footer} />
+            <UpButton />
+          </div>
+        </MenuProvider>
+      </body>
     </html>
   );
 }
