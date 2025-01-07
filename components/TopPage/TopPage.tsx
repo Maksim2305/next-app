@@ -55,7 +55,7 @@ export const TopPage = ({
         )}
       </div>
 
-      <div>{<Courses page={page} products={sortedCourses} />}</div>
+      <div className={styles['producs-list']}>{<Courses page={page} products={sortedCourses} />}</div>
     </>
   );
 };

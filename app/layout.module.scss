@@ -25,6 +25,7 @@
 
 .content {
   grid-area: content;
+  padding: 33px 0;
 }
 
 .footer {
@@ -32,7 +33,7 @@
 }
 
 /* stylelint-disable-next-line media-feature-range-notation */
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-mobile) {
   .wrapper {
     grid-template-columns: minmax(230px, 1fr);
     grid-template-areas:
@@ -46,9 +47,12 @@
   }
 
   .header {
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    gap: 10px;
+    padding: 20px;
   }
   .content {
-    padding: 0 10px;
+    padding: 8px 10px 0 10px;
   }
 }

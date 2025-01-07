@@ -17,10 +17,5 @@ export default function TypePage({ params }: PageProps) {
     return <div>Категория не найдена</div>;
   }
 
-  return (
-    <div>
-      <h1>{category.name}</h1>
-      <p>Добро пожаловать в раздел {category.name}!</p>
-    </div>
-  );
+  return <div></div>;
 }

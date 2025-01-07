@@ -7,15 +7,9 @@ import { ButtonProps } from '@/types/components';
 import { motion, HTMLMotionProps } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useScrollY } from '@/hooks/useScroll';
+import { ButtonIcon } from '../ui/ButtonIcon/ButtonIcon';
 
-export const UpButton = ({
-  appearance,
-  arrow = 'none',
-  children,
-  className,
-  disabled,
-  ...props
-}: ButtonProps): JSX.Element => {
+export const UpButton = (): JSX.Element => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const y = useScrollY();
@@ -33,25 +27,17 @@ export const UpButton = ({
   };
 
   return (
-    <motion.button
+    <motion.div
       initial={{ opacity: 0, translateY: 20 }}
-      className={cn(styles['up-button'], className, styles[appearance], {
-        [styles.disabled]: disabled,
-      })}
+      className={cn(styles['up-button'])}
       animate={{
         opacity: isVisible ? 1 : 0,
         translateY: isVisible ? 0 : 20,
       }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      {...(props as HTMLMotionProps<'button'>)}
       onClick={scrollToTop}
     >
-      {children}
-      {arrow !== 'none' && (
-        <span className={cn(styles.arrow, styles[arrow])}>
-          <ArrowIcon />
-        </span>
-      )}
-    </motion.button>
+      <ButtonIcon icon="arrow" fill="primary" />
+    </motion.div>
   );
 };
