@@ -1,6 +1,5 @@
 .cart-product {
   background-color: #fff;
-  margin-bottom: 30px;
 
   &__info {
     padding: 30px;
@@ -122,9 +121,9 @@
   .cart-product {
     &__top {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       grid-template-rows: auto auto;
-      gap: 8px;
+      gap: 10px;
     }
   }
 }
