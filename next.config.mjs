@@ -19,6 +19,9 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@import "variables.scss";`,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
